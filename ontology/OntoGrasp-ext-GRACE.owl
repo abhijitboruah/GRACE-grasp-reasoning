@@ -1,0 +1,1420 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/ontograsp-extension#"
+     xml:base="http://example.org/ontograsp-extension"
+     xmlns:og="http://example.org/ontograsp#"
+     xmlns:ogx="http://example.org/ontograsp-extension#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
+
+  <owl:Ontology rdf:about="http://example.org/ontograsp-extension">
+    <rdfs:comment xml:lang="en">GRACE ontology: OntoGrasp extension with a biomechanically grounded seven-power / two-precision grasp taxonomy, supporting descriptor classes, SWRL rules (R1-R11), and the scoped constraint C2.</rdfs:comment>
+    <rdfs:label xml:lang="en">OntoGrasp Extension (GRACE) for Rule-Based Grasp Reasoning</rdfs:label>
+  </owl:Ontology>
+
+  <!-- base-namespace anchor class -->
+  <owl:Class rdf:about="http://example.org/ontograsp#Grasp"/>
+  <owl:Class rdf:about="http://example.org/ontograsp#GripAperture"/>
+
+  <!-- ============ CLASSES ============ -->
+  <owl:Class rdf:about="http://example.org/ontograsp-extension#PowerGrasp">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <rdfs:comment xml:lang="en">Power (whole-hand / palmar enveloping) grasps.</rdfs:comment>
+  <rdfs:label xml:lang="en">PowerGrasp</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#PrecisionGrasp">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <rdfs:comment xml:lang="en">Precision (fingertip / pad) grasps.</rdfs:comment>
+  <rdfs:label xml:lang="en">PrecisionGrasp</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#LargeDiameter">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">LargeDiameter</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#SmallDiameter">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">SmallDiameter</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#MediumWrap">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">MediumWrap</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#ThumbAdducted">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">ThumbAdducted</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#PowerSphere">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">PowerSphere</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#Sphere3Finger">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">Sphere3Finger</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#Sphere4Finger">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdfs:label xml:lang="en">Sphere4Finger</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#Tripod">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PrecisionGrasp"/>
+  <rdfs:label xml:lang="en">Tripod</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#Quadpod">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#PrecisionGrasp"/>
+  <rdfs:label xml:lang="en">Quadpod</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#CylindricalEnvelopingGrasp">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://example.org/ontograsp-extension#LargeDiameter"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#SmallDiameter"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#MediumWrap"/>
+      </owl:unionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment xml:lang="en">Union of the large-span cylindrical power grasps; scope of constraint C2.</rdfs:comment>
+  <rdfs:label xml:lang="en">CylindricalEnvelopingGrasp</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#FlexedLevel">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:unionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="http://example.org/ontograsp-extension#MediumFlexion"/>
+        <rdf:Description rdf:about="http://example.org/ontograsp-extension#HighFlexion"/>
+      </owl:unionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:comment xml:lang="en">A flexion level that is not low (medium or high); used by rules to express that a finger is flexed.</rdfs:comment>
+  <rdfs:label xml:lang="en">FlexedLevel</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#OppositionType">
+  <rdfs:label xml:lang="en">OppositionType</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#PalmOpposition">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#OppositionType"/>
+  <rdfs:label xml:lang="en">PalmOpposition</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#PadOpposition">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#OppositionType"/>
+  <rdfs:label xml:lang="en">PadOpposition</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#ThumbConfiguration">
+  <rdfs:label xml:lang="en">ThumbConfiguration</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#Abducted">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#ThumbConfiguration"/>
+  <rdfs:label xml:lang="en">Abducted</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#Adducted">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#ThumbConfiguration"/>
+  <rdfs:label xml:lang="en">Adducted</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#FlexionLevel">
+  <rdfs:label xml:lang="en">FlexionLevel</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#LowFlexion">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#FlexionLevel"/>
+  <rdfs:label xml:lang="en">LowFlexion</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#MediumFlexion">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#FlexionLevel"/>
+  <rdfs:label xml:lang="en">MediumFlexion</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#HighFlexion">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#FlexionLevel"/>
+  <rdfs:label xml:lang="en">HighFlexion</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#FlexionPattern">
+  <rdfs:label xml:lang="en">FlexionPattern</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#HighWrapPattern">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#FlexionPattern"/>
+  <rdfs:label xml:lang="en">HighWrapPattern</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#SphericalPattern">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#FlexionPattern"/>
+  <rdfs:label xml:lang="en">SphericalPattern</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#TripodPattern">
+  <rdfs:subClassOf rdf:resource="http://example.org/ontograsp-extension#FlexionPattern"/>
+  <rdfs:label xml:lang="en">TripodPattern</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#ObjectShape">
+  <rdfs:label xml:lang="en">ObjectShape</rdfs:label>
+</owl:Class>
+<owl:Class rdf:about="http://example.org/ontograsp-extension#ConstraintViolation">
+  <rdfs:label xml:lang="en">ConstraintViolation</rdfs:label>
+</owl:Class>
+
+  <!-- ============ OBJECT PROPERTIES ============ -->
+  <owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasOppositionType"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasThumbConfiguration"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#requiresGripAperture"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasObjectShape"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasFlexionPattern"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasFlexionLevel_Index"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasFlexionLevel_Middle"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasFlexionLevel_Ring"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasFlexionLevel_Little"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="http://example.org/ontograsp-extension#hasFlexionLevel_Thumb"><rdfs:domain rdf:resource="http://example.org/ontograsp#Grasp"/></owl:ObjectProperty>
+
+  <!-- ============ DISJOINTNESS ============ -->
+  <owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="http://example.org/ontograsp-extension#PowerGrasp"/>
+    <rdf:Description rdf:about="http://example.org/ontograsp-extension#PrecisionGrasp"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="http://example.org/ontograsp-extension#LargeDiameter"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#SmallDiameter"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#MediumWrap"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#ThumbAdducted"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#PowerSphere"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#Sphere3Finger"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#Sphere4Finger"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#Tripod"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#Quadpod"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection"><rdf:Description rdf:about="http://example.org/ontograsp-extension#PalmOpposition"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#PadOpposition"/></owl:members>
+</owl:AllDisjointClasses>
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection"><rdf:Description rdf:about="http://example.org/ontograsp-extension#Abducted"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#Adducted"/></owl:members>
+</owl:AllDisjointClasses>
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection"><rdf:Description rdf:about="http://example.org/ontograsp-extension#LowFlexion"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#MediumFlexion"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#HighFlexion"/></owl:members>
+</owl:AllDisjointClasses>
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection"><rdf:Description rdf:about="http://example.org/ontograsp-extension#HighWrapPattern"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#SphericalPattern"/><rdf:Description rdf:about="http://example.org/ontograsp-extension#TripodPattern"/></owl:members>
+</owl:AllDisjointClasses>
+
+  <!-- ============ INDIVIDUALS ============ -->
+  <owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#HighWrapPattern_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#HighWrapPattern"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#SphericalPattern_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#SphericalPattern"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#TripodPattern_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#TripodPattern"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Adducted_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#Adducted"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Cylinder">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#ObjectShape"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Sphere">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#ObjectShape"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Low_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#LowFlexion"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Medium_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#MediumFlexion"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#High_ind">
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Grasp_Precision_OK">
+  <rdf:type rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <hasObjectShape rdf:resource="http://example.org/ontograsp-extension#Sphere"/>
+  <hasFlexionLevel_Index rdf:resource="http://example.org/ontograsp-extension#Medium_ind"/>
+  <hasFlexionLevel_Middle rdf:resource="http://example.org/ontograsp-extension#Medium_ind"/>
+  <hasFlexionLevel_Ring rdf:resource="http://example.org/ontograsp-extension#Low_ind"/>
+  <hasFlexionLevel_Little rdf:resource="http://example.org/ontograsp-extension#Low_ind"/>
+  <hasFlexionPattern rdf:resource="http://example.org/ontograsp-extension#TripodPattern_ind"/>
+  <requiresGripAperture rdf:resource="http://example.org/ontograsp#Minimal"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Grasp_Power_C2">
+  <rdf:type rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#MediumWrap"/>
+  <hasObjectShape rdf:resource="http://example.org/ontograsp-extension#Cylinder"/>
+  <hasFlexionPattern rdf:resource="http://example.org/ontograsp-extension#HighWrapPattern_ind"/>
+  <requiresGripAperture rdf:resource="http://example.org/ontograsp#Minimal"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp-extension#Grasp_Contradict">
+  <rdf:type rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#PowerGrasp"/>
+  <rdf:type rdf:resource="http://example.org/ontograsp-extension#PrecisionGrasp"/>
+  <hasObjectShape rdf:resource="http://example.org/ontograsp-extension#Cylinder"/>
+  <requiresGripAperture rdf:resource="http://example.org/ontograsp#Maximal"/>
+</owl:NamedIndividual>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp#Minimal"/>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp#Intermediate"/>
+<owl:NamedIndividual rdf:about="http://example.org/ontograsp#Maximal"/>
+
+  <!-- ============ SWRL RULES (R1-R11 + C2) ============ -->
+  
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R1_HighWrap">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R1: four-finger high flexion -> HighWrapPattern (cylindrical envelopment)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Index"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Middle"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lm"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lm"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Ring"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Little"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#HighWrapPattern_ind"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R4_LargeDiameter">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R4: cylinder + high wrap + maximal aperture -> LargeDiameter (PowerGrasp)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Cylinder"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighWrapPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Maximal"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#LargeDiameter"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R5_SmallDiameter">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R5: cylinder + high wrap + minimal aperture -> SmallDiameter (PowerGrasp)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Cylinder"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighWrapPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Minimal"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#SmallDiameter"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R6_MediumWrap">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R6: cylinder + medium index flexion + intermediate -> MediumWrap (PowerGrasp)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Cylinder"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Index"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#MediumFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Intermediate"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#MediumWrap"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R7_ThumbAdducted">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R7: cylinder + adducted thumb + minimal + ring extended -> ThumbAdducted (PowerGrasp)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Cylinder"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasThumbConfiguration"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Adducted_ind"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Minimal"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Ring"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#LowFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#ThumbAdducted"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R2_Spherical">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R2: sphere + 3 fingers high flexion -> SphericalPattern</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Sphere"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Index"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Middle"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lm"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lm"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Ring"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#SphericalPattern_ind"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R8_PowerSphere">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R8: sphere + spherical pattern + little flexed + intermediate -> PowerSphere</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Sphere"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#SphericalPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Little"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Intermediate"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#PowerSphere"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R9_Sphere4Finger">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R9: sphere + spherical pattern + little extended + intermediate -> Sphere4Finger</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Sphere"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#SphericalPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Little"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#LowFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Intermediate"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#Sphere4Finger"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R10_Sphere3Finger">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R10: sphere + index flexed + ring extended + intermediate -> Sphere3Finger</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Sphere"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Index"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#HighFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Ring"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#LowFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Intermediate"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#Sphere3Finger"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R3_TripodPattern">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R3: index+middle medium, ring+little low -> TripodPattern (fingertip)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Index"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#MediumFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#li"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Middle"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lm"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#MediumFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lm"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Ring"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#LowFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#lr"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionLevel_Little"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#LowFlexion"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#ll"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#TripodPattern_ind"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#R11_Tripod">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">R11: sphere + tripod pattern + minimal -> Tripod (PrecisionGrasp)</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp#Grasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasObjectShape"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#Sphere"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#hasFlexionPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#TripodPattern"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#p"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Minimal"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#Tripod"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="http://example.org/ontograsp-extension#C2_Constraint">
+  <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+  <rdfs:comment xml:lang="en">C2: cylindrical enveloping grasp under minimal aperture -> ConstraintViolation</rdfs:comment>
+  <swrl:body>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#CylindricalEnvelopingGrasp"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+  <swrl:propertyPredicate rdf:resource="http://example.org/ontograsp-extension#requiresGripAperture"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+  <swrl:argument2 rdf:resource="http://example.org/ontograsp#Minimal"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+</rdf:rest>
+</rdf:Description>
+  </swrl:body>
+  <swrl:head>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+  <rdf:first>
+<rdf:Description>
+  <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+  <swrl:classPredicate rdf:resource="http://example.org/ontograsp-extension#ConstraintViolation"/>
+  <swrl:argument1 rdf:resource="http://example.org/ontograsp-extension#g"/>
+</rdf:Description>
+  </rdf:first>
+  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+</rdf:Description>
+  </swrl:head>
+</swrl:Imp>
+
+</rdf:RDF>
