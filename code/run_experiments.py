@@ -1,23 +1,6 @@
 """
 Grasp interpretation experiment for the GRACE framework.
 
-Evaluates the ontology-driven rule engine against eight machine-learning
-classifiers (logistic regression, decision tree, random forest, extra trees,
-gradient boosting, XGBoost, LightGBM, and a shallow MLP) on the grasp
-dataset, under sensor-only and sensor-plus-context feature configurations.
-
-Outputs:
-  - predictive performance (accuracy, macro-F1, balanced accuracy)
-  - ontology diagnostics (leaf coverage, constraint-violation rate,
-    prediction stability under 2% Gaussian noise)
-  - per-constraint violation breakdown (C1, C2, C3)
-  - runtime per sample for each model
-  - paired t-tests between the rule engine and the reference classifier
-  - class distribution
-
-Protocol: 5-fold stratified cross-validation (random_state=42), with
-quantile-based flexion discretization (33rd and 66th percentiles) computed
-on the training fold only.
 """
 
 import os, time, json, sys
