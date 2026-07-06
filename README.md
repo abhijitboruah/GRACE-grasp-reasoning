@@ -22,7 +22,7 @@ GRACE-grasp-reasoning/
 ├── code/
 │   ├── run_experiments.py            Main evaluation pipeline
 │   ├── ablation.py                   Descriptor-group ablation study
-│   └── build_ontology.py             Regenerates the ontology file
+│   
 ├── requirements.txt
 ├── LICENSE                           MIT (code)
 └── LICENSE-data                      CC BY 4.0 (data and ontology)
@@ -57,8 +57,7 @@ disjointness axioms, eleven SWRL inference rules (R1–R11), the scoped
 constraint rule C2, and three example individuals.
 
 It can be opened in Protege 5.x and reasoned over with HermiT. The SWRL rules
-execute through the SWRLTab Drools engine. `code/build_ontology.py`
-regenerates the file from scratch.
+execute through the SWRLTab Drools engine. 
 
 ## Reproducing the experiments
 
